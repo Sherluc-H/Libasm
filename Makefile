@@ -6,11 +6,12 @@
 #    By: lhuang <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/02 18:25:37 by lhuang            #+#    #+#              #
-#    Updated: 2020/02/05 14:37:18 by lhuang           ###   ########.fr        #
+#    Updated: 2020/02/07 19:37:15 by lhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME= libasm.a
+NAME_BONUS= libasm_bonus.a
 FLAGS= -f macho64
 SRCS= ft_strlen.s ft_strcpy.s ft_strcmp.s ft_write.s ft_read.s ft_strdup.s
 OBJS= ft_strlen.o ft_strcpy.o ft_strcmp.o ft_write.o ft_read.o ft_strdup.o
@@ -39,21 +40,18 @@ ft_strdup.o: ft_strdup.s
 ft_atoi_base.o: ft_atoi_base.s
 		nasm -f macho64 ft_atoi_base.s
 
-ft_list_push_front.o: ft_list_push_front.s
-		nasm -f macho64 ft_list_push_front.s
-
 $(NAME): $(OBJS)
-		gcc main.c $(OBJS)
+		ar rc $(NAME) $(OBJS)
 
-bonus: $(OBJS) ft_atoi_base.o ft_list_push_front.o
-		gcc main.c $(OBJS) ft_atoi_base.o ft_list_push_front.o
+bonus: $(OBJS) ft_atoi_base.o
+		ar rc $(NAME_BONUS) $(OBJS) ft_atoi_base.o
 
 clean:
-		$(RM) $(OBJS) ft_atoi_base.o ft_list_push_front.o
+		$(RM) $(OBJS) ft_atoi_base.o
 
 fclean: clean
-		$(RM) $(NAME)
+		$(RM) $(NAME) $(NAME_BONUS)
 
-re:
+re: fclean all
 
-.PHONY: all bonus fclean clean re
+.PHONY: all bonus clean fclean re
