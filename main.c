@@ -6,7 +6,7 @@
 /*   By: lhuang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 16:56:19 by lhuang            #+#    #+#             */
-/*   Updated: 2020/02/07 19:49:57 by lhuang           ###   ########.fr       */
+/*   Updated: 2020/02/08 13:55:31 by lhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	main(void)
 	printf("%s\n", strcpy(dest2, "abc"));
 	char dest3[10];
 	char dest4[10];
-	printf("%s\n", ft_strcpy(dest1, ""));
-	printf("%s\n", strcpy(dest2, ""));
+	printf("%s\n", ft_strcpy(dest3, ""));
+	printf("%s\n", strcpy(dest4, ""));
 //	char dest5[10];
 //	char dest6[10];
 //	printf("%s\n", ft_strcpy(dest1, NULL));
@@ -59,8 +59,8 @@ int	main(void)
 //	char dest8[1];
 //	printf("%s\n", ft_strcpy(dest7, "abc"));
 //	printf("%s\n", strcpy(dest8, "abc"));
-	char *dest9 = "abcdef";
-	char *dest10 = "abcdef";
+//	char *dest9 = "abcdef";
+//	char *dest10 = "abcdef";
 //	printf("%s\n", dest9);
 //	printf("%s\n", dest10);
 //	printf("%s\n", ft_strcpy(dest9, "c"));
@@ -84,6 +84,7 @@ int	main(void)
 	printf("%d\n", strcmp("abc", ""));
 	printf("%d\n", ft_strcmp("", "abc"));
 	printf("%d\n", strcmp("", "abc"));
+
 						//ft_write
 	printf("\t\t\tFT_WRITE\n");
 	printf("%zd\n", ft_write(1, "Hello \0aworld\n", 12));
@@ -98,6 +99,8 @@ int	main(void)
 	printf("%zd\n", write(0, "Hello \0aworld\n", 9));
 	printf("%zd\n", ft_write(3, "Hello \0aworld\n", 9));
 	printf("%zd\n", write(3, "Hello \0aworld\n", 9));
+	printf("%zd\n", ft_write(2, "Hello \0aworld\n", 2));
+	printf("%zd\n", write(2, "Hello \0aworld\n", 2));
 						//ft_read	
 	printf("\t\t\tFT_READ\n");
 	char t1[10];
@@ -105,21 +108,24 @@ int	main(void)
 	int fd;
 	fd = open("test", O_RDONLY);
 	printf("=%zd\n", ft_read(fd, t1, 5));
-	write(1, &t1, 5);
+	write(1, t1, 5);
 	close(fd);
 	fd = open("test", O_RDONLY);
 	printf("=%zd\n", read(fd, t2, 5));
-	write(1, &t2, 5);
-
-	char t3[10];
-	char t4[10];
-	printf("!=%zu\n", ft_read(0, t3, 5));
-	printf("!=%zu\n", read(0, t4, 5));
-
-	char t5[10];
-	char t6[10];
-	printf("!=%zu\n", ft_read(-1, t3, 5));
-	printf("!=%zu\n", read(-1, t4, 5));
+	write(1, t2, 5);
+	close(fd);
+	char t3[100];
+	int a = ft_read(0, t3, 50);
+	write(1, t3, a);
+	printf("%d\n", a);
+	char t4[100];
+	int	b = read(0, t4, 50);
+	write(1, t4, b);
+	printf("%d\n", b);
+	char t5[50];
+	char t6[50];
+	printf("!=%zu\n", ft_read(-1, t5, 5));
+	printf("!=%zu\n", read(-1, t6, 5));
 
 						//ft_strdup
 	printf("\t\t\tFT_STRDUP\n");
@@ -129,7 +135,12 @@ int	main(void)
 	free(p);
 	//free(p);
 	p = NULL;
-
+	char *p2;
+	p2 = strdup("a");
+	printf("%s\n", p2);
+	free(p2);
+	//free(p2);
+	p2 = NULL;
 	printf("%s\n", ft_strdup("abced"));
 	printf("%s\n", strdup("abced"));
 //	printf("%s\n", ft_strdup(NULL));
@@ -139,7 +150,7 @@ int	main(void)
 	printf("-%s-\n", ft_strdup(""));
 	printf("-%s-\n", strdup(""));
 	printf("%s\n", p);
+	printf("%s\n", p2);
 //	system("leaks a.out");
-	printf("%d, %d, %d, %d, %d, %d, %d, %d\n", ' ', '\t', '\v', '\n', '\r', '\f', '+', '-');
 	return (0);
 }
